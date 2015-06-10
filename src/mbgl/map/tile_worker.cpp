@@ -47,6 +47,7 @@ size_t TileWorker::countBuckets() const {
 
 TileParseResult TileWorker::parse(const GeometryTile& geometryTile) {
     try {
+        partialParse = false;
         for (const auto& layer : style.layers) {
             parseLayer(*layer, geometryTile);
         }
