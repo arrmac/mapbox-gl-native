@@ -46,7 +46,7 @@ void VectorTileData::request(float pixelRatio, const std::function<void()>& call
         if (res.status != Response::Successful) {
             std::stringstream message;
             message <<  "Failed to load [" << url << "]: " << res.message;
-            error = message.str();
+            error = std::make_exception_ptr(std::runtime_error(message.str()));
             state = State::obsolete;
             callback();
             return;
@@ -76,9 +76,7 @@ bool VectorTileData::reparse(std::function<void()> callback) {
         if (result.is<State>()) {
             state = result.get<State>();
         } else {
-            std::stringstream message;
-            message <<  "Failed to parse [" << std::string(id) << "]: " << result.get<std::string>();
-            error = message.str();
+            error = result.get<std::exception_ptr>();
             state = State::obsolete;
         }
 

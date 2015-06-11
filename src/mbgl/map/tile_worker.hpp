@@ -24,8 +24,8 @@ class StyleBucket;
 class GeometryTileLayer;
 
 using TileParseResult = mapbox::util::variant<
-    TileData::State, // success
-    std::string>;    // error
+    TileData::State,     // success
+    std::exception_ptr>; // error
 
 class TileWorker : public util::noncopyable {
 public:

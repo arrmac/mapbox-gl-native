@@ -46,18 +46,13 @@ size_t TileWorker::countBuckets() const {
 }
 
 TileParseResult TileWorker::parse(const GeometryTile& geometryTile) {
-    try {
-        partialParse = false;
-        for (const auto& layer : style.layers) {
-            parseLayer(*layer, geometryTile);
-        }
+    partialParse = false;
 
-        return partialParse ? TileData::State::partial : TileData::State::parsed;
-    } catch (const std::exception& ex) {
-        std::stringstream message;
-        message << "Failed to parse [" << int(id.sourceZ) << "/" << id.x << "/" << id.y << "]: " << ex.what();
-        return message.str();
+    for (const auto& layer : style.layers) {
+        parseLayer(*layer, geometryTile);
     }
+
+    return partialParse ? TileData::State::partial : TileData::State::parsed;
 }
 
 void TileWorker::redoPlacement(float angle, bool collisionDebug) {

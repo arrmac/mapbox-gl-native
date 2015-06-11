@@ -45,7 +45,7 @@ bool LiveTileData::reparse(std::function<void()> callback) {
         if (result.is<State>()) {
             state = result.get<State>();
         } else {
-            error = result.get<std::string>();
+            error = result.get<std::exception_ptr>();
             state = State::obsolete;
         }
 

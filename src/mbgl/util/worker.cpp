@@ -28,13 +28,17 @@ public:
         try {
             pbf tilePBF(reinterpret_cast<const unsigned char *>(data.data()), data.size());
             return worker->parse(VectorTile(tilePBF));
-        } catch (const std::exception& ex) {
-            return TileParseResult(ex.what());
+        } catch (...) {
+            return TileParseResult(std::current_exception());
         }
     }
 
     TileParseResult parseLiveTile(TileWorker* worker, const LiveTile* tile) {
-        return worker->parse(*tile);
+        try {
+            return worker->parse(*tile);
+        } catch (...) {
+            return TileParseResult(std::current_exception());
+        }
     }
 
     void redoPlacement(TileWorker* worker, float angle, bool collisionDebug) {

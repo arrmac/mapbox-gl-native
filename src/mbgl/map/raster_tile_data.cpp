@@ -36,7 +36,7 @@ void RasterTileData::request(float pixelRatio,
         if (res.status != Response::Successful) {
             std::stringstream message;
             message <<  "Failed to load [" << url << "]: " << res.message;
-            error = message.str();
+            error = std::make_exception_ptr(std::runtime_error(message.str()));
             state = State::obsolete;
             callback();
             return;

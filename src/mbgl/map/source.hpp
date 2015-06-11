@@ -98,9 +98,9 @@ private:
     void tileLoadingCompleteCallback(const TileID& normalized_id, const TransformState& transformState, bool collisionDebug);
 
     void emitSourceLoaded();
-    void emitSourceLoadingFailed(const std::string& message);
+    void emitSourceLoadingFailed(std::exception_ptr);
     void emitTileLoaded(bool isNewTile);
-    void emitTileLoadingFailed(const std::string& message);
+    void emitTileLoadingFailed(const TileID&, std::exception_ptr);
 
     bool handlePartialTile(const TileID &id, Worker &worker);
     bool findLoadedChildren(const TileID& id, int32_t maxCoveringZoom, std::forward_list<TileID>& retain);
