@@ -65,6 +65,8 @@
         'miscellaneous/variant.cpp',
         'miscellaneous/worker.cpp',
 
+        'sprites/sprite_atlas.cpp',
+
         'storage/storage.hpp',
         'storage/storage.cpp',
         'storage/cache_response.cpp',
