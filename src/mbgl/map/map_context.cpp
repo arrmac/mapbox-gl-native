@@ -111,11 +111,11 @@ void MapContext::setStyleJSON(const std::string& json, const std::string& base) 
     loadStyleJSON(json, base);
 }
 
-void MapContext::loadStyleJSON(const std::string& json, const std::string& base) {
+void MapContext::loadStyleJSON(const std::string& json, const std::string&) {
     assert(util::ThreadContext::currentlyOn(util::ThreadType::Map));
 
     style.reset();
-    style = std::make_unique<Style>(json, base, asyncUpdate->get()->loop);
+    style = std::make_unique<Style>(json);
     style->cascade(data.getClasses());
     style->setDefaultTransitionDuration(data.getDefaultTransitionDuration());
     style->setObserver(this);

@@ -31,9 +31,7 @@ class Style : public GlyphStore::Observer,
               public Sprite::Observer,
               public util::noncopyable {
 public:
-    Style(const std::string& data,
-          const std::string& base,
-          uv_loop_t*);
+    Style(const std::string& data);
     ~Style();
 
     class Observer {

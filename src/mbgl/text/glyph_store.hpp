@@ -10,8 +10,6 @@
 #include <unordered_map>
 #include <exception>
 
-typedef struct uv_loop_s uv_loop_t;
-
 namespace uv {
 class async;
 }
@@ -32,7 +30,7 @@ public:
         virtual void onGlyphRangeLoadingFailed(std::exception_ptr error) = 0;
     };
 
-    GlyphStore(uv_loop_t* loop);
+    GlyphStore();
     ~GlyphStore();
 
     // Asynchronously request for GlyphRanges and when it gets loaded, notifies the

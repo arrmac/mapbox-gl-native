@@ -19,9 +19,8 @@
 
 namespace mbgl {
 
-Style::Style(const std::string& data, const std::string&,
-             uv_loop_t* loop)
-    : glyphStore(std::make_unique<GlyphStore>(loop)),
+Style::Style(const std::string& data)
+    : glyphStore(std::make_unique<GlyphStore>()),
       glyphAtlas(std::make_unique<GlyphAtlas>(1024, 1024)),
       spriteAtlas(std::make_unique<SpriteAtlas>(512, 512)),
       lineAtlas(std::make_unique<LineAtlas>(512, 512)),

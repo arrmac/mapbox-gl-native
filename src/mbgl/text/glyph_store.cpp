@@ -1,15 +1,16 @@
 #include <mbgl/text/glyph_store.hpp>
-#include <mbgl/text/glyph_pbf.hpp>
-#include <mbgl/text/font_stack.hpp>
 
+#include <mbgl/text/font_stack.hpp>
+#include <mbgl/text/glyph_pbf.hpp>
 #include <mbgl/util/exception.hpp>
+#include <mbgl/util/run_loop.hpp>
 #include <mbgl/util/uv_detail.hpp>
 
 namespace mbgl {
 
-GlyphStore::GlyphStore(uv_loop_t* loop)
-    : asyncEmitGlyphRangeLoaded(std::make_unique<uv::async>(loop, [this] { emitGlyphRangeLoaded(); })),
-      asyncEmitGlyphRangeLoadedingFailed(std::make_unique<uv::async>(loop, [this] { emitGlyphRangeLoadingFailed(); })),
+GlyphStore::GlyphStore()
+    : asyncEmitGlyphRangeLoaded(std::make_unique<uv::async>(util::RunLoop::getLoop(), [this] { emitGlyphRangeLoaded(); })),
+      asyncEmitGlyphRangeLoadedingFailed(std::make_unique<uv::async>(util::RunLoop::getLoop(), [this] { emitGlyphRangeLoadingFailed(); })),
       observer(nullptr) {
     asyncEmitGlyphRangeLoaded->unref();
     asyncEmitGlyphRangeLoadedingFailed->unref();
