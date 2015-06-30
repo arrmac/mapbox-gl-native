@@ -17,6 +17,10 @@ public:
     RunLoop(uv_loop_t*);
     ~RunLoop();
 
+    static uv_loop_t* getLoop() {
+        return current.get()->get();
+    }
+
     void stop();
 
     // Invoke fn(args...) on this RunLoop.
@@ -55,8 +59,6 @@ public:
 
     uv_loop_t* get() { return async.get()->loop; }
 
-    static uv::tls<RunLoop> current;
-
 private:
     // A movable type-erasing invokable entity wrapper. This allows to store arbitrary invokable
     // things (like std::function<>, or the result of a movable-only std::bind()) in the queue.
@@ -94,6 +96,8 @@ private:
     Queue queue;
     std::mutex mutex;
     uv::async async;
+
+    static uv::tls<RunLoop> current;
 };
 
 }

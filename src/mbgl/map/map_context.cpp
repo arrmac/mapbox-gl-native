@@ -95,7 +95,7 @@ void MapContext::setStyleURL(const std::string& url) {
     }
 
     FileSource* fs = util::ThreadContext::getFileSource();
-    fs->request({ Resource::Kind::Style, styleURL }, util::RunLoop::current.get()->get(), [this, base](const Response &res) {
+    fs->request({ Resource::Kind::Style, styleURL }, util::RunLoop::getLoop(), [this, base](const Response &res) {
         if (res.status == Response::Successful) {
             loadStyleJSON(res.data, base);
         } else {
