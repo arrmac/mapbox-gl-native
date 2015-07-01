@@ -13,7 +13,7 @@ TEST_F(Storage, DatabaseDoesNotExist) {
 
     Log::setObserver(std::make_unique<FixtureLogObserver>());
 
-    SQLiteCache::Impl cache(nullptr, "test/fixtures/404/cache.db");
+    SQLiteCache::Impl cache("test/fixtures/404/cache.db");
 
     std::unique_ptr<Response> res = cache.get({ Resource::Unknown, "mapbox://test" });
     EXPECT_EQ(nullptr, res.get());
@@ -54,7 +54,7 @@ TEST_F(Storage, DatabaseCreate) {
 
     Log::setObserver(std::make_unique<FixtureLogObserver>());
 
-    SQLiteCache::Impl cache(nullptr, "test/fixtures/database/cache.db");
+    SQLiteCache::Impl cache("test/fixtures/database/cache.db");
 
     std::unique_ptr<Response> res = cache.get({ Resource::Unknown, "mapbox://test" });
     EXPECT_EQ(nullptr, res.get());
@@ -109,7 +109,7 @@ TEST_F(Storage, DatabaseLockedRead) {
     deleteFile("test/fixtures/database/locked.db");
     FileLock guard("test/fixtures/database/locked.db");
 
-    SQLiteCache::Impl cache(nullptr, "test/fixtures/database/locked.db");
+    SQLiteCache::Impl cache("test/fixtures/database/locked.db");
 
     {
         // First request should fail.
@@ -149,7 +149,7 @@ TEST_F(Storage, DatabaseLockedWrite) {
     deleteFile("test/fixtures/database/locked.db");
     FileLock guard("test/fixtures/database/locked.db");
 
-    SQLiteCache::Impl cache(nullptr, "test/fixtures/database/locked.db");
+    SQLiteCache::Impl cache("test/fixtures/database/locked.db");
 
     {
         // Adds a file (which should fail).
@@ -194,7 +194,7 @@ TEST_F(Storage, DatabaseLockedRefresh) {
     createDir("test/fixtures/database");
     deleteFile("test/fixtures/database/locked.db");
 
-    SQLiteCache::Impl cache(nullptr, "test/fixtures/database/locked.db");
+    SQLiteCache::Impl cache("test/fixtures/database/locked.db");
 
     // Then, lock the file and try again.
     FileLock guard("test/fixtures/database/locked.db");
@@ -240,7 +240,7 @@ TEST_F(Storage, DatabaseDeleted) {
     createDir("test/fixtures/database");
     deleteFile("test/fixtures/database/locked.db");
 
-    SQLiteCache::Impl cache(nullptr, "test/fixtures/database/locked.db");
+    SQLiteCache::Impl cache("test/fixtures/database/locked.db");
 
     {
         // Adds a file.
@@ -285,7 +285,7 @@ TEST_F(Storage, DatabaseInvalid) {
     deleteFile("test/fixtures/database/invalid.db");
     writeFile("test/fixtures/database/invalid.db", "this is an invalid file");
 
-    SQLiteCache::Impl cache(nullptr, "test/fixtures/database/invalid.db");
+    SQLiteCache::Impl cache("test/fixtures/database/invalid.db");
 
     {
         // Adds a file.

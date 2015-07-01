@@ -10,7 +10,7 @@ namespace mbgl {
 
 class Worker::Impl {
 public:
-    Impl(uv_loop_t*) {}
+    Impl() = default;
 
     void doWork(std::shared_ptr<WorkTask>& task) {
         task->runTask();

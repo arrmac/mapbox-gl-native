@@ -8,8 +8,6 @@
 #include <set>
 #include <unordered_map>
 
-typedef struct uv_loop_s uv_loop_t;
-
 namespace mbgl {
 
 class RequestBase;
@@ -31,7 +29,7 @@ struct DefaultFileRequest {
 
 class DefaultFileSource::Impl {
 public:
-    Impl(uv_loop_t*, FileCache*, const std::string& = "");
+    Impl(FileCache*, const std::string& = "");
 
     void add(Request*);
     void cancel(Request*);

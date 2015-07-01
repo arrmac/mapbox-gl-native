@@ -20,8 +20,7 @@ namespace {
 
 class MockMapContext : public Style::Observer {
 public:
-    MockMapContext(uv_loop_t*,
-                   View& view,
+    MockMapContext(View& view,
                    FileSource& fileSource,
                    const std::function<void(std::exception_ptr error)>& callback)
         : data_(MapMode::Still),
